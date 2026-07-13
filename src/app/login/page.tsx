@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f1115' }}>
       <div style={{ width: 360, padding: 32, background: '#1a1d24', borderRadius: 16, border: '1px solid #2a2e37' }}>
-        <h1 style={{ color: '#fff', fontSize: 24, fontWeight: 600, margin: 0 }}>MargoIQ</h1>
+<img src="/logo.png" alt="MargoIQ" style={{ height: 40 }} />
         <p style={{ color: '#8a909c', fontSize: 14, marginTop: 4, marginBottom: 24 }}>
           {mode === 'login' ? 'Log in to your AI CFO' : 'Create your account'}
         </p>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
-const GLOW = 'radial-gradient(120% 80% at 50% 100%, #3A0E18 0%, #1A0A0E 38%, #0A0A0B 70%)'
+const GLOW = 'radial-gradient(120% 80% at 50% 100%, #DBEAFE 0%, #3B82F6 18%, #0E1F3A 45%, #0A0A0B 75%)'
 const PANEL = 'rgba(20,20,23,0.72)'
 const BORDER = '#23232A'
 const INK = '#F4F5F7'
@@ -95,8 +95,7 @@ export default function TransactionsPage() {
       {/* Sidebar */}
       <aside style={{ width: 200, background: 'transparent', borderRight: `0.5px solid ${BORDER}`, padding: '20px 14px', display: 'flex', flexDirection: 'column', gap: 5 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 28, padding: '0 6px' }}>
-          <div style={{ width: 28, height: 28, borderRadius: 9, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0A0A0B', fontSize: 15 }}>✦</div>
-          <span style={{ color: INK, fontSize: 16, fontWeight: 600 }}>MargoIQ</span>
+          <img src="/logo.png" alt="MargoIQ" style={{ height: 26 }} />
         </div>
         <NavItem label="Dashboard" href="/dashboard" />
         <NavItem label="Close out night" href="/close-out" />

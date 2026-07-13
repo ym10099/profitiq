@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { calculatePnL, calculateMonthly, type Transaction, type PnL, type MonthlyPnL } from '@/lib/calculations'
 
-const GLOW = 'radial-gradient(120% 80% at 50% 100%, #3A0E18 0%, #1A0A0E 38%, #0A0A0B 70%)'
+const GLOW = 'radial-gradient(120% 80% at 50% 100%, #DBEAFE 0%, #3B82F6 18%, #0E1F3A 45%, #0A0A0B 75%)'
 const PANEL = 'rgba(20,20,23,0.72)'
 const PANEL_AI = 'rgba(12,15,13,0.72)'
 const BORDER = '#23232A'
@@ -16,7 +16,7 @@ const SUB = '#9A9CA3'
 const FAINT = '#5C5E66'
 const GREEN_FILL = '#0E2A1C'; const GREEN_BORDER = '#1F5C3E'; const GREEN_TEXT = '#3FD98A'
 const RED_TEXT = '#F2607A'
-const BLUE_FILL = '#0F1E33'; const BLUE_BORDER = '#234A7A'; const BLUE_TEXT = '#5B9DF5'
+const BLUE_FILL = '#0F1E33'; const BLUE_BORDER = '#234A7A'; const BLUE_TEXT = '#3B82F6'
 const AMBER_FILL = '#2A1F00'; const AMBER_BORDER = '#5C4500'; const AMBER = '#FBBF24'
 
 type Digest = {
@@ -101,8 +101,7 @@ export default function WeeklyDigestPage() {
       {/* Sidebar */}
       <aside style={{ width: 200, background: 'transparent', borderRight: `0.5px solid ${BORDER}`, padding: '20px 14px', display: 'flex', flexDirection: 'column', gap: 5 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 28, padding: '0 6px' }}>
-          <div style={{ width: 28, height: 28, borderRadius: 9, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0A0A0B', fontSize: 15 }}>✦</div>
-          <span style={{ color: INK, fontSize: 16, fontWeight: 600 }}>MargoIQ</span>
+          <img src="/logo.png" alt="MargoIQ" style={{ height: 26 }} />
         </div>
         <NavItem label="Dashboard" href="/dashboard" />
         <NavItem label="Close out night" href="/close-out" />
