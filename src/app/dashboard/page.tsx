@@ -196,7 +196,7 @@ export default function DashboardPage() {
     <div style={{ display: 'flex', minHeight: '100vh', background: GLOW, fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
       <aside style={{ width: 200, background: 'transparent', borderRight: `0.5px solid ${BORDER}`, padding: '20px 14px', display: 'flex', flexDirection: 'column', gap: 5 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 28, padding: '0 6px' }}>
-          <img src="/logo.png" alt="MargoIQ" style={{ height: 26 }} />
+          <img src="/logo.png" alt="MargoiQ" style={{ height: 26 }} />
         </div>
         <NavItem label="Dashboard" href="/dashboard" active />
         <NavItem label="Close out night" href="/close-out" />

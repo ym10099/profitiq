@@ -1,5 +1,5 @@
 // Pure, deterministic P&L math. No AI, no randomness.
-// Every number MargoIQ shows comes from here.
+// Every number MargoiQ shows comes from here.
 
 export type Transaction = {
   txn_date: string
