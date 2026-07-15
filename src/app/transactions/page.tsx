@@ -136,7 +136,7 @@ export default function TransactionsPage() {
         <NavItem label="Projects" href="/projects" />
         <NavItem label="Transactions" href="/transactions" active />
         <NavItem label="Weekly digest" href="/weekly-digest" />
-        <NavItem label="Settings" href="/dashboard" />
+        <NavItem label="Settings" href="/settings" />
         <div style={{ marginTop: 'auto' }}>
           <button onClick={handleLogout} style={{ width: '100%', textAlign: 'left', background: 'transparent', border: 'none', cursor: 'pointer', padding: '9px 12px', borderRadius: 9, color: SUB, fontSize: 14 }}>
             Log out
