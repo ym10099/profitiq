@@ -1,105 +1,97 @@
-'use client'
+import Link from 'next/link'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
+const GLOW = 'radial-gradient(120% 80% at 50% 100%, #16326B 0%, #0E2149 35%, #0A1226 60%, #0A0A0B 82%)'
+const PANEL = 'rgba(20,20,23,0.72)'
+const BORDER = '#23232A'
+const INK = '#F4F5F7'
+const SUB = '#9A9CA3'
+const FAINT = '#5C5E66'
+const BLUE = '#3B82F6'
 
-export default function LoginPage() {
-  const router = useRouter()
-  const supabase = createClient()
-
-  const [mode, setMode] = useState<'login' | 'signup'>('login')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-
-  async function handleSubmit() {
-    setLoading(true)
-    setMessage('')
-
-    if (mode === 'signup') {
-      const { error } = await supabase.auth.signUp({ email, password })
-      if (error) setMessage(error.message)
-      else setMessage('Account created. You can now log in.')
-      setMode('login')
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) setMessage(error.message)
-      else router.push('/dashboard')
-    }
-    setLoading(false)
-  }
-
+export default function Home() {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f1115' }}>
-      <div style={{ width: 360, padding: 32, background: '#1a1d24', borderRadius: 16, border: '1px solid #2a2e37' }}>
-<img src="/logo.png" alt="MargoiQ" style={{ height: 40 }} />
-        <p style={{ color: '#8a909c', fontSize: 14, marginTop: 4, marginBottom: 24 }}>
-          {mode === 'login' ? 'Log in to your AI CFO' : 'Create your account'}
+    <div style={{ minHeight: '100vh', background: GLOW, fontFamily: 'Inter, system-ui, -apple-system, sans-serif', display: 'flex', flexDirection: 'column' }}>
+
+      {/* Top nav */}
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px', borderBottom: `0.5px solid ${BORDER}`, maxWidth: 1100, width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+        <img src="/logo.png" alt="MargoIQ" style={{ height: 30 }} />
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <Link href="/login" style={{ color: SUB, fontSize: 14, textDecoration: 'none', padding: '9px 14px' }}>
+            Log in
+          </Link>
+          <Link href="/login" style={{ background: BLUE, color: '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none', padding: '9px 18px', borderRadius: 9 }}>
+            Get started
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section style={{ maxWidth: 780, margin: '0 auto', padding: '90px 32px 60px', textAlign: 'center' }}>
+        <p style={{ display: 'inline-block', fontSize: 12, color: BLUE, border: `0.5px solid ${BLUE}`, borderRadius: 20, padding: '4px 14px', margin: '0 0 22px', letterSpacing: 0.4 }}>
+          YOUR AI CFO
         </p>
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={inputStyle}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={inputStyle}
-        />
-
-        <button onClick={handleSubmit} disabled={loading} style={buttonStyle}>
-          {loading ? 'Please wait…' : mode === 'login' ? 'Log in' : 'Sign up'}
-        </button>
-
-        {message && (
-          <p style={{ color: '#e2b340', fontSize: 13, marginTop: 12 }}>{message}</p>
-        )}
-
-        <p style={{ color: '#8a909c', fontSize: 13, marginTop: 20, textAlign: 'center' }}>
-          {mode === 'login' ? "No account? " : 'Already have one? '}
-          <span
-            onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-            style={{ color: '#5b8def', cursor: 'pointer' }}
-          >
-            {mode === 'login' ? 'Sign up' : 'Log in'}
-          </span>
+        <h1 style={{ color: INK, fontSize: 52, fontWeight: 700, margin: 0, lineHeight: 1.12, letterSpacing: -1 }}>
+          Know exactly where your money goes
+        </h1>
+        <p style={{ color: SUB, fontSize: 18, lineHeight: 1.6, margin: '22px auto 34px', maxWidth: 560 }}>
+          MargoIQ turns your raw transactions into clear profit numbers, AI-powered
+          insights, and per-project P&amp;L — the financial clarity of a CFO, without hiring one.
         </p>
-      </div>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          <Link href="/login" style={{ background: BLUE, color: '#fff', fontSize: 16, fontWeight: 600, textDecoration: 'none', padding: '14px 28px', borderRadius: 11 }}>
+            Get started free
+          </Link>
+          <Link href="/login" style={{ background: 'transparent', color: INK, fontSize: 16, fontWeight: 500, textDecoration: 'none', padding: '14px 28px', borderRadius: 11, border: `0.5px solid ${BORDER}` }}>
+            Log in
+          </Link>
+        </div>
+      </section>
+
+      {/* Feature cards */}
+      <section style={{ maxWidth: 1000, margin: '0 auto', padding: '20px 32px 80px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, width: '100%', boxSizing: 'border-box' }}>
+        <Feature
+          title="Upload. Done."
+          body="Drop in a CSV from your bank or point-of-sale and instantly see income, expenses, and net profit — categorized and organized for you."
+        />
+        <Feature
+          title="AI insights that talk business"
+          body="Ask your AI CFO what's eating your margin, which expenses are creeping up, and what to fix first. Plain answers, not spreadsheets."
+        />
+        <Feature
+          title="Profit per project"
+          body="Assign transactions to projects and see exactly which clients and jobs make you money — and which ones quietly lose it."
+        />
+      </section>
+
+      {/* Bottom CTA */}
+      <section style={{ maxWidth: 700, margin: '0 auto', padding: '0 32px 90px', textAlign: 'center' }}>
+        <h2 style={{ color: INK, fontSize: 30, fontWeight: 700, margin: '0 0 14px' }}>
+          Stop guessing. Start knowing.
+        </h2>
+        <p style={{ color: SUB, fontSize: 15, margin: '0 0 26px' }}>
+          Set up in minutes. Your first upload gives you answers today.
+        </p>
+        <Link href="/login" style={{ background: BLUE, color: '#fff', fontSize: 16, fontWeight: 600, textDecoration: 'none', padding: '14px 30px', borderRadius: 11, display: 'inline-block' }}>
+          Create your account
+        </Link>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ marginTop: 'auto', borderTop: `0.5px solid ${BORDER}`, padding: '22px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1100, width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+        <img src="/logo.png" alt="MargoIQ" style={{ height: 20, opacity: 0.7 }} />
+        <p style={{ color: FAINT, fontSize: 12, margin: 0 }}>
+          © {new Date().getFullYear()} MargoIQ · margoiq.com
+        </p>
+      </footer>
     </div>
   )
 }
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '10px 12px',
-  marginBottom: 12,
-  background: '#0f1115',
-  border: '1px solid #2a2e37',
-  borderRadius: 8,
-  color: '#fff',
-  fontSize: 14,
-  boxSizing: 'border-box',
-}
-
-const buttonStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '11px',
-  background: '#5b8def',
-  border: 'none',
-  borderRadius: 8,
-  color: '#fff',
-  fontSize: 15,
-  fontWeight: 600,
-  cursor: 'pointer',
-  marginTop: 4,
+function Feature({ title, body }: { title: string; body: string }) {
+  return (
+    <div style={{ background: PANEL, border: `0.5px solid ${BORDER}`, borderRadius: 14, padding: '22px 22px', backdropFilter: 'blur(8px)' }}>
+      <p style={{ color: INK, fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>{title}</p>
+      <p style={{ color: SUB, fontSize: 14, lineHeight: 1.6, margin: 0 }}>{body}</p>
+    </div>
+  )
 }
