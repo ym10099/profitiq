@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { calculatePnL, calculateMonthly, type Transaction, type PnL, type MonthlyPnL } from '@/lib/calculations'
 import ProfitTrend from '@/components/ProfitTrend'
+import MargoChat from '@/components/MargoChat'
 
 type Insight = { number: string; reason: string; action: string }
 
@@ -293,6 +294,7 @@ export default function DashboardPage() {
             </>
           )}
 
+          {!loading && pnl && pnl.transactionCount > 0 && <MargoChat />}
           {!loading && pnl && pnl.transactionCount === 0 && (
             <div style={{ background: PANEL, border: `0.5px solid ${BORDER}`, borderRadius: 16, padding: 40, textAlign: 'center', backdropFilter: 'blur(8px)' }}>
               <p style={{ color: INK, fontSize: 16, fontWeight: 600, margin: 0 }}>No transactions yet</p>
