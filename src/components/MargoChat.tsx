@@ -28,10 +28,13 @@ export default function MargoChat() {
 
   useEffect(() => {
     async function load() {
-      const { data } = await supabase
-        .from('transactions')
-        .select('txn_date, description, amount, type')
-        .order('txn_date', { ascending: true })
+      const [{ data }, { data: projects }] = await Promise.all([
+        supabase
+          .from('transactions')
+          .select('txn_date, description, amount, type, project_id')
+          .order('txn_date', { ascending: true }),
+        supabase.from('projects').select('id, name'),
+      ])
       if (!data || data.length === 0) {
         setSummary('The user has not uploaded any transactions yet.')
         return
@@ -55,7 +58,19 @@ export default function MargoChat() {
         .slice(0, 8)
         .map(([d, v]) => `${d}: $${v.toFixed(0)}`)
         .join('\n')
-      setSummary(`MONTHLY TOTALS:\n${monthLines}\n\nTOP EXPENSES (all time):\n${topExpenses}\n\nTOTAL TRANSACTIONS: ${data.length}`)
+      let projectLines = 'No projects created yet.'
+      if (projects && projects.length > 0) {
+        projectLines = projects
+          .map((pr) => {
+            const txns = data.filter((t) => t.project_id === pr.id)
+            const inc = txns.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0)
+            const exp = txns.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
+            return `${pr.name}: income $${inc.toFixed(0)}, expenses $${exp.toFixed(0)}, profit $${(inc - exp).toFixed(0)} (${txns.length} transactions)`
+          })
+          .join('\n')
+      }
+      const unassigned = data.filter((t) => !t.project_id).length
+      setSummary(`MONTHLY TOTALS:\n${monthLines}\n\nTOP EXPENSES (all time):\n${topExpenses}\n\nPROJECTS (per-job profit):\n${projectLines}\nUnassigned transactions: ${unassigned}\n\nTOTAL TRANSACTIONS: ${data.length}`)
     }
     load()
   }, [])
