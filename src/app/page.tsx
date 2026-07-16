@@ -41,8 +41,8 @@ export default function Home() {
           <Link href="/login" style={{ background: BLUE, color: '#fff', fontSize: 16, fontWeight: 600, textDecoration: 'none', padding: '14px 28px', borderRadius: 11 }}>
             Get started free
           </Link>
-          <Link href="/login" style={{ background: 'transparent', color: INK, fontSize: 16, fontWeight: 500, textDecoration: 'none', padding: '14px 28px', borderRadius: 11, border: `0.5px solid ${BORDER}` }}>
-            Log in
+          <Link href="/demo" style={{ background: 'transparent', color: INK, fontSize: 16, fontWeight: 500, textDecoration: 'none', padding: '14px 28px', borderRadius: 11, border: `0.5px solid ${BORDER}` }}>
+            Try the live demo
           </Link>
         </div>
       </section>
