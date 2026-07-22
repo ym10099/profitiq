@@ -33,6 +33,7 @@ export default function DashboardPage() {
 
   const [pnl, setPnl] = useState<PnL | null>(null)
   const [monthly, setMonthly] = useState<MonthlyPnL[]>([])
+  const [allTxns, setAllTxns] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [status, setStatus] = useState('')
@@ -54,6 +55,7 @@ export default function DashboardPage() {
     const txns = (data ?? []) as Transaction[]
     setPnl(calculatePnL(txns))
     setMonthly(calculateMonthly(txns))
+    setAllTxns(txns)
     setLoading(false)
   }
 
@@ -251,7 +253,7 @@ export default function DashboardPage() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 14, alignItems: 'stretch' }}>
-                <ProfitTrend data={monthly} />
+                <ProfitTrend data={monthly} transactions={allTxns} />
                 <ExpenseDonut />
               </div>
 
